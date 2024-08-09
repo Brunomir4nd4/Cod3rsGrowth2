@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Servico.Validadores;
 using FluentValidation;
+using System.ComponentModel;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {

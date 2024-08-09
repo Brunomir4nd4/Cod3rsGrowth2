@@ -4,8 +4,6 @@ sap.ui.define([
       "use strict";
 
       return BaseController.extend("coders-growth.controller.NotFound", {
-         
          onInit: function () {}
-
       });
  });

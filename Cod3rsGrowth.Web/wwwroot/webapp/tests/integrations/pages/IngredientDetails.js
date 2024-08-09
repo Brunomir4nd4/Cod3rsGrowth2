@@ -1,16 +1,19 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	'sap/ui/test/matchers/PropertyStrictEquals'
+	'sap/ui/test/matchers/PropertyStrictEquals',
+    'sap/ui/test/actions/Press'
 ], (
         Opa5,
-        PropertyStrictEquals
+        PropertyStrictEquals,
+        Press
     ) => {
 	"use strict";
     
     const NOME_DA_VIEW = "DetalhesIngrediente";
-    const ID_PAGE = "paginaDeDetalhes";
-    const ID_TITULO = "tituloNomeDoIngrediente";
-    const PROPRIEDADE_TITULO = "title";
+    const ID_TITULO = "tituloDeDetalhes";
+    const ID_TITULO_NOME = "tituloNomeDoIngrediente";
+    const ID_BOTAO_EDITAR = "botaoEditar";
+    const ID_BOTAO_VOLTAR_PAGINA = "botaoVoltarPagina";
     const PROPRIEDADE_TEXT = "text"
     const VALOR_TITULO_PAGE = "Detalhes";
 
@@ -19,15 +22,32 @@ sap.ui.define([
         naPaginaDeDetalhesDoIngrediente: {
 
             actions: {
+                aoClicarNoBotaoEditar() {
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_EDITAR,
+                        actions: new Press(),
+                        errorMessage: "Botão Editar não encontrado"
+                    })
+                },
+
+                aoClicarNoBotaoDeVoltarPagina(){
+                    return this.waitFor({
+                        viewName: NOME_DA_VIEW,
+                        id: ID_BOTAO_VOLTAR_PAGINA,
+                        actions: new Press(),
+                        errorMessage: "Botão de voltar página não encontrado."
+                    })
+                }
             },
 
             assertions: {
                 deveAbrirViewDeDetalhes() {
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
-                        id: ID_PAGE,
+                        id: ID_TITULO,
                         matchers: new PropertyStrictEquals({
-                            name: PROPRIEDADE_TITULO,
+                            name: PROPRIEDADE_TEXT,
                             value: VALOR_TITULO_PAGE
                         }),
                         success: function () {
@@ -40,7 +60,7 @@ sap.ui.define([
                 deveSerOIngredienteEsperado(nomeEsperado) {
                     return this.waitFor({
                         viewName: NOME_DA_VIEW,
-                        id: ID_TITULO,
+                        id: ID_TITULO_NOME,
                         matchers: new PropertyStrictEquals({
                             name: PROPRIEDADE_TEXT,
                             value: nomeEsperado

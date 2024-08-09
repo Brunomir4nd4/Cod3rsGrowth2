@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(List<Ingrediente> ingredientes)
+        public IActionResult Criar([FromBody] List<Ingrediente> ingredientes)
         {
             var id = _servicoPocao.Criar(ingredientes);
 

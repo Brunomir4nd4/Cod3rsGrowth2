@@ -1,0 +1,78 @@
+<mvc:View
+    controllerName="coders-growth.ingrediente.Listagem"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core" >
+
+    <Page title="{i18n>Listagem.Listagem}" class="sapUiResponsiveContentPadding" binding="{img>/}" >
+        <Table
+            id="tabelaIngrediente"
+            width="auto"
+            items="{ path: 'ingrediente>/'}"
+            mode="MultiSelect"
+            alternateRowColors="true"
+            growing="true"
+            growingScrollToLoad="true"
+        >
+
+            <headerToolbar>
+                <Toolbar>
+                    <Title id="tableHeader" text="{i18n>Listagem.Ingredientes}"/>
+                    <ToolbarSpacer />
+                    <Input id="filtroNome" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Nome...}"/>
+                    <Input id="filtroQuantidade" type="Text" width="auto" liveChange="aoAlterarFiltrar" placeholder="{i18n>Listagem.Quantidade...}"/>
+                    <Select id="filtroNaturalidade" change="aoAlterarFiltrar" items="{enum>/descricao}">
+                        <items>
+                            <core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />
+                        </items>
+                    </Select>
+                    <Button icon="sap-icon://add" press="aoClicarIrParaCadastro" id="botaoAdicionar" text="Adicionar" />
+                </Toolbar>
+            </headerToolbar>
+
+            <columns>
+                <Column>
+                    <Text text="{i18n>Listagem.NomeDoIngrediente}" />
+                </Column>
+                <Column hAlign="End" >
+                    <Text text="{i18n>Listagem.Quantidade}" />
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem 
+                    type="Navigation"
+					press="aoClicarIrParaDetalhes">
+                    <cells>
+                        <HBox>
+                            <Image
+                                src="{path: 'ingrediente>naturalidade', formatter: '.formatter.obterImagem'}"
+                                class="sapMUSTItemImage"
+                                width="60px"
+                                height="70px"
+                            />
+                            <VBox class="sapUiTinyMargin sapUiSmallMarginBegin">
+                                <ObjectIdentifier
+                                    class="sapUiTinyMarginBottom sapUiSmallMarginTop"
+                                    title="{ingrediente>nome}"
+                                    text="{
+                                        path: 'ingrediente>naturalidade',
+                                        formatter: '.formatter.formatarValorInteiroDoEnum'
+                                    }" 
+                                />
+                            </VBox>
+                        </HBox>
+                        <ObjectNumber
+							unit="{i18n>DetalhesIngrediente.Unidades}"
+							textAlign="End"
+							state="{
+								path: 'ingrediente>quantidade',
+								formatter: '.formatter.quantityState'}"
+							number="{ingrediente>quantidade}" >
+						</ObjectNumber>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

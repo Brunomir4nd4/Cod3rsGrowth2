@@ -5,27 +5,29 @@ sap.ui.define([
 ], function(opaTest) {
     'use strict';
     
-    const NOME_ITEM_DA_TABELA_POLVORA = "Pólvora";
+    const NAME_SPACE = "coders-growth";
+    const HASH_DE_DETALHES = "DetalhesIngrediente/4";
     const NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE = "Melancia Reluzente";
     const VALOR_ESPERADO_MELANCIA_RELUZENTE = "Melancia Reluzente";
 
-    QUnit.module("Posts");
+    QUnit.module("Detalhes");
 
     opaTest("Deve entrar na página de detalhes de um ingrediente", function (Given, When, Then) {
-        Given.iStartMyApp();
-    
-        When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_POLVORA);
+        Given.iStartMyUIComponent({
+            componentConfig: {
+                name: NAME_SPACE
+            } ,
+            hash: HASH_DE_DETALHES
+        });
     
         Then.naPaginaDeDetalhesDoIngrediente.deveAbrirViewDeDetalhes();
-
-        Then.iTeardownMyApp();
     });
 
     opaTest("Deve verificar se o título da página corresponde ao ingrediente esperado", function (Given, When, Then) {
-        Given.iStartMyApp();
-    
+        When.naPaginaDeDetalhesDoIngrediente.aoClicarNoBotaoDeVoltarPagina();
         When.naPaginaDeListagemDosIngredientes.aoClicarEmUmItemDaTabela(NOME_ITEM_DA_TABELA_MELANCIA_RELUZENTE);
     
         Then.naPaginaDeDetalhesDoIngrediente.deveSerOIngredienteEsperado(VALOR_ESPERADO_MELANCIA_RELUZENTE);
+        Then.iTeardownMyApp();
     });
 });

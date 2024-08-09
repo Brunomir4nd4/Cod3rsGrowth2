@@ -1,0 +1,60 @@
+<mvc:View
+    controllerName="coders-growth.ingrediente.CadastroIngrediente"
+	id="CadastroIngrediente"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+	xmlns:semantic="sap.f.semantic" >
+    <MessageStrip
+        text="Ingrediente cadastrado com sucesso."
+        type="Success"
+        showIcon="true"
+        showCloseButton="true"
+        class="sapUiTinyMargin"
+        id="successMessageStrip"
+        visible="false" />
+
+    <MessageStrip
+        text="Falha: não foi possível cadastrar o ingrediente."
+        type="Error"
+        showIcon="true"
+        showCloseButton="true"
+        class="sapUiTinyMargin"
+        id="errorMessageStrip"
+        visible="false" />
+
+	<Page showHeader="false">
+		<content>
+			<Toolbar >
+				<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
+				<Title id="Title1" text="Cadastro"/>
+				<ToolbarSpacer />
+				<Button icon='sap-icon://save' press="aoClicarCadastrarIngrediente"  id="saveButton" text="Salvar" />
+			</Toolbar>
+			<semantic:SemanticPage toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll ="true" >
+				<semantic:headerContent>
+						<FlexBox alignItems="Start" >
+							<VBox width="50%" class="sapUiMediumMarginBegin" >
+								<Label text="Nome" required="true" />
+								<Input id="inputNome" liveChange="aoAlterarNome" required="true" />
+							</VBox>
+							<VBox width="50%" class="sapUiMediumMarginBegin" >
+								<Label text="Quantidade" required="true" />
+								<Input id="inputQuantidade" liveChange="aoAlterarQuantidade" />
+							</VBox>
+							<VBox width="50%" class="sapUiMediumMarginBegin" >
+								<Label text="Naturalidade" required="true" />
+								<Select id="inputNaturalidade" items="{enum>/descricao}" width="100%" >
+									<items>
+										<core:Item key="{path: 'enum>text'}" text="{path: 'enum>text'}" />
+									</items>
+								</Select>
+							</VBox>
+						</FlexBox>
+				</semantic:headerContent>
+			</semantic:SemanticPage>
+		</content>
+	</Page>
+</mvc:View>

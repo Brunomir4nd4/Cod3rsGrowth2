@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="coders-growth.controller.DetalhesIngrediente"
+    controllerName="coders-growth.ingrediente.DetalhesIngrediente"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:wt="ui5.walkthrough.control"
@@ -7,13 +7,21 @@
 	xmlns:l="sap.ui.layout" >
 
 	<Page
-		title="{i18n>DetalhesIngrediente.Detalhes}"
-		showNavButton="true"
-		navButtonPress="onNavBack"
 		binding="{ingrediente>/}"
-		id="paginaDeDetalhes" >
+		id="paginaDeDetalhes"
+		showHeader="false" >
+		<content>
+			<Toolbar>
+				<content>
+					<Button icon="sap-icon://navigation-left-arrow" press="onNavBack" id="botaoVoltarPagina" />
+					<Title text="{i18n>DetalhesIngrediente.Detalhes}" level="H2" id="tituloDeDetalhes" />
+					<ToolbarSpacer />
+					<Button icon="sap-icon://edit" text="Editar" press="aoClicarIrParaCadastroParaEditar" id="botaoEditar" />
+				</content>
+			</Toolbar>
+		</content>
 
-		<semantic:SemanticPage>
+		<semantic:SemanticPage toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll ="true" >
 			<semantic:titleHeading>
 				<Title text="{ingrediente>nome}" id="tituloNomeDoIngrediente" />
 			</semantic:titleHeading>

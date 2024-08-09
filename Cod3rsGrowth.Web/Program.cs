@@ -25,12 +25,26 @@ app.UseStaticFiles(new StaticFileOptions()
     ServeUnknownFileTypes = true
 });
 
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/i18n"))
+    {
+        var filePath = Path.Combine(builder.Environment.ContentRootPath, "wwwroot/webapp/i18n", context.Request.Path.Value.Substring(6));
+        if (File.Exists(filePath))
+        {
+            await context.Response.SendFileAsync(filePath);
+            return;
+        }
+    }
+
+    await next();
+});
+
 app.UseFileServer(new FileServerOptions
 {
      FileProvider = new PhysicalFileProvider(
-            Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
-     EnableDirectoryBrowsing = true
- });
+            Path.Combine(builder.Environment.ContentRootPath, "wwwroot/webapp"))
+});
 
 app.UseDefaultFiles();
 

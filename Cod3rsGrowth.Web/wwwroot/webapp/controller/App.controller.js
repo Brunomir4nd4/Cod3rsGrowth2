@@ -4,9 +4,6 @@ sap.ui.define([
     "use strict";
 
     return Controller.extend("coders-growth.controller.App", {
-        
-        onInit(){
-            
-        }
+        onInit(){}
     });
 });

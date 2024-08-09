@@ -34,13 +34,25 @@ sap.ui.define([
         },
 
         quantityState: function(iValue) {
-			if (iValue === 0) {
+			if (iValue <= 2) {
 				return ValueState.Error;
 			} else if (iValue <= 10) {
 				return ValueState.Warning;
 			} else {
 				return ValueState.Success;
 			}
-		}
+		},
+
+        obterImagem: function(naturalidade) {
+            if (naturalidade === 0) {
+                return sap.ui.require.toUrl("coders-growth/images/overworld_block.png");
+            } 
+            else if (naturalidade === 1) {
+                return sap.ui.require.toUrl("coders-growth/images/nether_block.png");
+            } 
+            else {
+                return sap.ui.require.toUrl("coders-growth/images/the_end_block.png");
+            }
+        }
     }
 });

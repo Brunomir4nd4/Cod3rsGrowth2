@@ -14,16 +14,17 @@ sap.ui.define([
     const ID_INPUT_QUANTIDADE = "filtroQuantidade";
 	const ID_TABELA_INGREDIENTES = "tabelaIngrediente";
 	const ID_SELECT_NATURALIDADE = "filtroNaturalidade";
-	const ID_BOTAO_OVERWORLD = "__component1---listagem--OverWorld";
-	const ID_BOTAO_NETHER = "__component1---listagem--Nether";
-	const ID_BOTAO_THEEND = "__component1---listagem--TheEnd";
-	const ID_BOTAO_TODOS = "__component1---listagem--Todos";
 	const ID_BOTAO_ADICIOANAR = "botaoAdicionar";
+	const CAMPO_SELECT_OVERWORLD = "OverWorld";
+	const CAMPO_SELECT_NETHER = "Nether";
+	const CAMPO_SELECT_THE_END = "TheEnd";
+	const CAMPO_SELECT_TODOS = "Todos";
 	const NOME_DO_JSONMODEL = "ingrediente";
-	const PROPARTY_NOME = "nome";
-	const PROPARTY_NATURALIDADE = "naturalidade";
-	const PROPARTY_QUANTIDADDE = "quantidade";
+	const PROPRIEDADE_NOME = "nome";
+	const PROPRIEDADE_NATURALIDADE = "naturalidade";
+	const PROPRIEDADE_QUANTIDADE = "quantidade";
 	const PROPRIEDADE_TEXT = "text";
+	const PROPRIEDADE_KEY = "key";
 
 	Opa5.createPageObjects({
 	
@@ -52,8 +53,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoOverWorld(){
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_OVERWORLD,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_OVERWORLD
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão OverWorld não encontrado."
 					});
@@ -61,8 +67,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoNether(){
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_NETHER,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_NETHER
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão Nether não encontrado."
 					});
@@ -70,8 +81,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoTheEnd() {
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_THEEND,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_THE_END
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão TheEnd não encontrado."
 					});
@@ -79,8 +95,13 @@ sap.ui.define([
 
 				aoClicarNoBotaoTodos() {
 					return this.waitFor({
-						viewName: NOME_DA_VIEW,
-						id: ID_BOTAO_TODOS,
+						controlType: "sap.ui.core.Item",
+						matchers: [
+							new sap.ui.test.matchers.PropertyStrictEquals({
+								name: PROPRIEDADE_KEY,
+								value: CAMPO_SELECT_TODOS
+							})
+						],
 						actions: new Press(),
 						errorMessage: "Botão Todos não encontrado."
 					});
@@ -117,17 +138,17 @@ sap.ui.define([
                     })
                 },
 
-				aoClicarEmUmItemDaTabela(valorEsperado) {
+				aoClicarEmUmItemDaTabela(nomeDoItem) {
 					return this.waitFor({
 						controlType: "sap.m.Text",
 						matchers: [
 							new sap.ui.test.matchers.PropertyStrictEquals({
 								name: PROPRIEDADE_TEXT,
-								value: valorEsperado
+								value: nomeDoItem
 							})
 						],
 						actions: new Press(),
-						errorMessage: "Item não encontrado com o nome esperado: " + valorEsperado
+						errorMessage: "Item com o nome: " + nomeDoItem + "não encontrado"
 					});
 				}
 			},
@@ -147,7 +168,7 @@ sap.ui.define([
 
 							let result = true;
 							items.map((item) => {
-								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NOME);
 								if (!nome.includes(stringEsperada)) 
 									result = false;
 							});
@@ -173,8 +194,8 @@ sap.ui.define([
 
 							let result = true; 
 							items.map((item) => {
-								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NOME);
-								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_QUANTIDADDE);
+								let nome = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NOME);
+								let quantidade = item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_QUANTIDADE);
 								if (!nome.includes(stringEsperada) & quantidade !== quantidadeEsperada)
 									result = false;
 							});
@@ -200,7 +221,7 @@ sap.ui.define([
 				
 							let result = true;
 							items.map((item) => {
-								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NATURALIDADE));
 								if (naturalidade !== stringEsperada) {
 									result = false;
 								}
@@ -226,7 +247,7 @@ sap.ui.define([
 							
 							let result = true;
 							items.map((item) => {
-								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NATURALIDADE));
 								if (naturalidade !== stringEsperada)
 									result = false;
 							});
@@ -251,7 +272,7 @@ sap.ui.define([
 
 							let result = true;
 							items.map((item) => {
-								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPARTY_NATURALIDADE));
+								let naturalidade = formatarEnum(item.getBindingContext(NOME_DO_JSONMODEL).getProperty(PROPRIEDADE_NATURALIDADE));
 								if (naturalidade !== stringEsperada)
 									result = false;
 							});
@@ -260,7 +281,7 @@ sap.ui.define([
 						},
 						errorMessage: "Alguns itens na tabela não possuem a naturalidade " + stringEsperada
 					})
-				},
+				}
 			}
 		}
 	});

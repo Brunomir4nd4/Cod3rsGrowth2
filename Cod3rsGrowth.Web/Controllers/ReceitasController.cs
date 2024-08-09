@@ -34,7 +34,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(Receita receita)
+        public IActionResult Criar([FromBody] Receita receita)
         {
             int id = _servicoReceita.Criar(receita);
 
@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Editar(Receita receita)
+        public IActionResult Editar([FromBody] Receita receita)
         {
             return Ok(_servicoReceita.Editar(receita));
         }

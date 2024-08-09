@@ -1,8 +1,8 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
     "./integrations/arrangements/Startup",
-    //"./integrations/pages/tenets/IngredientsListJourney",
-    //"./integrations/pages/tenets/IngredientRegisterJourney",
+    "./integrations/pages/tenets/IngredientsListJourney",
+    "./integrations/pages/tenets/IngredientRegisterJourney",
     "./integrations/pages/tenets/IngredientDetailsJourney"
 ], function (Opa5, Startup) {
     "use Strict";
